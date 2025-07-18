@@ -4,7 +4,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 // Import Page Components
 import HomePage from './pages/HomePage';
 import RsvpPage from './pages/RsvpPage';
-import AdminPage from './pages/AdminPage';
+import AdminTestPage from './pages/AdminTestPage';
 import LoginPage from './pages/LoginPage';
 
 // Import Shared Components
@@ -17,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/rsvp" element={<RsvpPage />} />
-        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin" element={<AdminTestPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
