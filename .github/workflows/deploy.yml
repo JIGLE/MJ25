@@ -87,16 +87,3 @@ jobs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-
-  deploy-webhook:
-    needs: build-and-push
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-    - name: Trigger TrueNAS deployment
-      run: |
-        curl -X POST \
-          -H "Authorization: Bearer ${{ secrets.TRUENAS_WEBHOOK_TOKEN }}" \
-          -H "Content-Type: application/json" \
-          -d '{"action": "redeploy", "image": "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest"}' \
-          ${{ secrets.TRUENAS_WEBHOOK_URL }}
