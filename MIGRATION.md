@@ -266,9 +266,22 @@ kubectl logs -n ix-mj25-wedding deployment/mj25-wedding
 
 ### Migration Issues
 ```bash
-# If you need to restart migration
+# If you get "non-fast-forward" error (remote has content):
+# Option 1: Merge with existing content (safe)
+git pull origin main --allow-unrelated-histories
+git push origin main
+
+# Option 2: Replace everything (⚠️ destroys existing content)
+git push origin main --force
+
+# If you get "Authentication failed" error:
+# 1. Make sure you're using a Personal Access Token (not password)
+# 2. Token needs 'repo', 'workflow', and 'write:packages' permissions
+# 3. Use token as password when Git prompts for credentials
+
+# If you need to restart migration completely:
 git remote remove origin
-git remote add origin https://github.com/your-username/new-repo.git
+git remote add origin https://github.com/JIGLE/MJ25.git
 git push -u origin main --force
 ```
 

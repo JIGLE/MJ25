@@ -11,6 +11,20 @@ if [ ! -f "package.json" ]; then
     exit 1
 fi
 
+# Check if Node.js is installed
+if ! command -v node &> /dev/null; then
+    echo "⚠️  Node.js is not installed. Installing Node.js..."
+    echo "📦 Updating package list..."
+    sudo apt update
+    echo "📦 Installing Node.js and npm..."
+    sudo apt install -y nodejs npm
+    echo "✅ Node.js installation completed"
+    node --version
+    npm --version
+else
+    echo "✅ Node.js is already installed: $(node --version)"
+fi
+
 echo ""
 echo "🔐 AUTHENTICATION REQUIRED:"
 echo "GitHub no longer supports password authentication for HTTPS URLs."
@@ -79,15 +93,59 @@ else
 fi
 
 # Ensure we're on main branch
+echo "🔄 Setting up main branch..."
 git checkout main 2>/dev/null || git checkout -b main
 
-# Push to GitHub
-echo "🚀 Pushing to GitHub..."
+# Handle existing remote content
+echo "� Checking for existing remote content..."
 if git ls-remote origin main > /dev/null 2>&1; then
-    # Repository has existing main branch
-    git push origin main
+    echo "📋 Remote repository has existing content"
+    echo "Choose how to handle existing content:"
+    echo "1) Merge with existing content (safe)"
+    echo "2) Replace all existing content (⚠️  destructive)"
+    echo "3) Cancel and review manually"
+    read -p "Enter your choice (1-3): " choice
+    
+    case $choice in
+        1)
+            echo "🔄 Merging with existing content..."
+            git pull origin main --allow-unrelated-histories
+            if [ $? -ne 0 ]; then
+                echo "⚠️  Merge conflicts detected. Please resolve manually:"
+                echo "1. Edit conflicted files"
+                echo "2. Run: git add ."
+                echo "3. Run: git commit -m 'Resolve merge conflicts'"
+                echo "4. Run: git push origin main"
+                exit 1
+            fi
+            git push origin main
+            ;;
+        2)
+            echo "⚠️  WARNING: This will replace ALL existing content!"
+            read -p "Are you sure? Type 'yes' to confirm: " confirm
+            if [ "$confirm" = "yes" ]; then
+                echo "🔄 Force pushing to replace existing content..."
+                git push origin main --force
+            else
+                echo "❌ Operation cancelled"
+                exit 1
+            fi
+            ;;
+        3)
+            echo "❌ Operation cancelled. You can manually resolve with:"
+            echo "git pull origin main --allow-unrelated-histories"
+            echo "# Resolve any conflicts, then:"
+            echo "git push origin main"
+            exit 0
+            ;;
+        *)
+            echo "❌ Invalid choice. Operation cancelled."
+            exit 1
+            ;;
+    esac
 else
     # First push to empty repository
+    echo "📤 First push to empty repository..."
     git push -u origin main
 fi
 
