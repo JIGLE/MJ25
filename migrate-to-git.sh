@@ -11,6 +11,17 @@ if [ ! -f "package.json" ]; then
     exit 1
 fi
 
+echo ""
+echo "🔐 AUTHENTICATION REQUIRED:"
+echo "GitHub no longer supports password authentication for HTTPS URLs."
+echo "You need to either:"
+echo "1. Use a Personal Access Token as your password when prompted"
+echo "2. Set up SSH authentication"
+echo ""
+echo "📖 See MIGRATION.md for detailed authentication setup instructions"
+echo ""
+read -p "Press Enter when you have set up authentication..."
+
 # Fix Git configuration for this environment
 echo "🔧 Configuring Git for TrueNAS environment..."
 git config --global --add safe.directory "$(pwd)"

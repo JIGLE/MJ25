@@ -21,7 +21,34 @@ To:
 
 Your repository is already set up at: `https://github.com/JIGLE/MJ25`
 
-### 2. Replace Repository Contents
+### 2. Set up GitHub Authentication
+
+Since GitHub removed password authentication, you need to set up proper authentication:
+
+**Option A: Personal Access Token (Recommended for HTTPS)**
+
+1. Go to GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
+2. Generate new token with these permissions:
+   - `repo` (Full control of private repositories)
+   - `workflow` (Update GitHub Action workflows)
+   - `write:packages` (Write packages to GitHub Package Registry)
+3. Copy the token (you won't see it again!)
+4. Use it as your password when pushing to Git
+
+**Option B: SSH Key (Alternative)**
+
+```bash
+# Generate SSH key on TrueNAS
+ssh-keygen -t ed25519 -C "contact@jigle.dev"
+
+# Copy public key
+cat ~/.ssh/id_ed25519.pub
+
+# Add to GitHub → Settings → SSH and GPG keys → New SSH key
+# Then use SSH URL: git@github.com:JIGLE/MJ25.git
+```
+
+### 3. Replace Repository Contents
 
 From TrueNAS Shell or SSH, we'll replace all existing files:
 
@@ -96,7 +123,7 @@ git commit -m "Complete rewrite: TrueNAS SCALE app with CI/CD"
 git push origin main --force
 ```
 
-### 3. Set up GitHub Container Registry
+### 4. Set up GitHub Container Registry
 
 1. Go to your GitHub repository: `https://github.com/JIGLE/MJ25`
 2. Navigate to "Settings" → "Actions" → "General"
@@ -104,7 +131,7 @@ git push origin main --force
 4. In "Workflow permissions", select "Read and write permissions"
 5. Enable "Allow GitHub Actions to create and approve pull requests"
 
-### 4. Configure Secrets (Optional - for auto-deployment)
+### 5. Configure Secrets (Optional - for auto-deployment)
 
 In your GitHub repository settings → "Secrets and variables" → "Actions":
 
@@ -113,7 +140,7 @@ TRUENAS_WEBHOOK_URL=http://your-truenas-ip:9000/webhook
 TRUENAS_WEBHOOK_TOKEN=your-secret-token
 ```
 
-### 5. Update Repository References
+### 6. Update Repository References
 
 Update any references in the codebase to use your actual repository:
 
@@ -125,7 +152,7 @@ sed -i 's|https://github.com/your-username/mj25-wedding|https://github.com/JIGLE
 sed -i 's|your-username/mj25-wedding|JIGLE/MJ25|g' README.md
 ```
 
-### 5. Update TrueNAS Configuration
+### 7. Update TrueNAS Configuration
 
 Replace the current setup with the custom app:
 
@@ -139,7 +166,7 @@ docker-compose down
 # Use the Helm chart from: charts/mj25-wedding/
 ```
 
-### 6. Development Workflow
+### 8. Development Workflow
 
 From now on, develop locally and push to Git:
 
@@ -204,6 +231,19 @@ mj25-wedding/
 7. **Professional**: Industry-standard deployment practices
 
 ## 🆘 Troubleshooting
+
+### Authentication Issues
+```bash
+# If you get "Authentication failed" error:
+# 1. Make sure you're using a Personal Access Token (not password)
+# 2. Token needs 'repo', 'workflow', and 'write:packages' permissions
+# 3. Use token as password when Git prompts for credentials
+
+# For SSH authentication:
+ssh-keygen -t ed25519 -C "contact@jigle.dev"
+cat ~/.ssh/id_ed25519.pub  # Add this to GitHub SSH keys
+git remote set-url origin git@github.com:JIGLE/MJ25.git
+```
 
 ### Build Failures
 ```bash
