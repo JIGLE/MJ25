@@ -1,0 +1,121 @@
+
+/* Admin Area Styles */
+#admin-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 20px;
+    font-family: Roboto, sans-serif;
+}
+
+#rsvp-data,
+#room-data,
+#add-room,
+#edit-room {
+    margin: 20px;
+    background-color: #f8f4f0;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    flex-basis: calc(50% - 40px); /* Two items per row, accounting for margin */
+    min-width: 300px; /* Reduced min-width */
+    box-sizing: border-box;
+}
+
+#add-room-form label,
+#edit-room-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #0033cc;
+}
+
+#add-room-form input,
+#add-room-form textarea,
+#edit-room-form input,
+#edit-room-form textarea {
+    width: 250px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+}
+
+#admin-container nav {
+    background-color: #fbf8ee;
+    color: #0033cc;
+    padding: 10px;
+    text-align: center;
+}
+
+#admin-container nav a {
+    color: #0033cc;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+#rsvp-table,
+#room-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#rsvp-table th,
+#rsvp-table td,
+#room-table th,
+#room-table td {
+    border: 1px solid #d9d9d9;
+    padding: 8px;
+    text-align: left;
+}
+
+#rsvp-table th,
+#room-table th {
+    background-color: #d9d9d9;
+    color: #0033cc;
+}
+
+/* Add Room Styles */
+#add-room-form,
+#edit-room-form {
+    display: inline-block;
+    text-align: left;
+}
+
+#add-room-form label,
+#edit-room-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #0033cc;
+}
+
+#add-room-form input,
+#add-room-form textarea,
+#edit-room-form input,
+#edit-room-form textarea {
+    width: 200px;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+}
+
+#add-room-form button,
+#edit-room-form button {
+    background-color: #0033cc;
+    color: #f8f4f0;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+#add-room-form button:hover,
+#edit-room-form button:hover {
+    opacity: 0.8;
+}
+
+h1, h2 {
+    font-family: Roboto, sans-serif;
+}

@@ -1,0 +1,712 @@
+/* Dashboard Overview - Clean Layout with Dark Mode Support */
+@import '../../styles/themes.css';
+
+.overview {
+  max-width: 1400px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin: 0 0 var(--spacing-xs);
+  letter-spacing: -0.025em;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+.dateInfo {
+  text-align: center;
+}
+
+.countdown {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: var(--text-inverted);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 120px;
+  border: 1px solid var(--border-color);
+}
+
+.countdownNumber {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: var(--spacing-xs);
+}
+
+.countdownLabel {
+  font-size: 0.6875rem;
+  opacity: 0.9;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Statistics Grid - Match Guest Management */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.statCard {
+  background: var(--bg-elevated);
+  padding: var(--spacing-xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  min-height: 120px;
+}
+
+.statCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.statCard.sage::before { background: linear-gradient(90deg, var(--sage-400), var(--sage-500)); }
+.statCard.blush::before { background: linear-gradient(90deg, var(--blush-400), var(--blush-500)); }
+.statCard.cream::before { background: linear-gradient(90deg, var(--cream-400), var(--cream-500)); }
+.statCard.neutral::before { background: linear-gradient(90deg, var(--neutral-400), var(--neutral-500)); }
+
+.statCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.statIcon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.375rem;
+  flex-shrink: 0;
+}
+
+.statCard.sage .statIcon {
+  background: var(--sage-100);
+  color: var(--sage-600);
+}
+
+.statCard.blush .statIcon {
+  background: var(--blush-100);
+  color: var(--blush-600);
+}
+
+.statCard.cream .statIcon {
+  background: var(--cream-100);
+  color: var(--cream-600);
+}
+
+.statCard.neutral .statIcon {
+  background: var(--neutral-100);
+  color: var(--neutral-600);
+}
+
+.statContent {
+  flex: 1;
+}
+
+.statNumber {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+  margin-bottom: var(--spacing-sm);
+}
+
+.statLabel {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  line-height: 1.3;
+}
+
+/* Quick Actions - Match Guest Management */
+.quickActions {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.sectionTitle {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin: 0 0 var(--spacing-lg);
+  letter-spacing: -0.02em;
+}
+
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.actionCard {
+  background: var(--bg-elevated);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.actionCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--accent-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition-base);
+}
+
+.actionCard:hover::before {
+  transform: scaleX(1);
+}
+
+.actionCard:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-focus);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.actionCard.sage::before { background: var(--sage-600); }
+.actionCard.blush::before { background: var(--blush-600); }
+.actionCard.cream::before { background: var(--cream-600); }
+
+.actionIcon {
+  font-size: 1.5rem;
+  color: var(--accent-primary);
+  margin-right: var(--spacing-md);
+}
+
+.actionCard.sage .actionIcon { color: var(--sage-600); }
+.actionCard.blush .actionIcon { color: var(--blush-600); }
+.actionCard.cream .actionIcon { color: var(--cream-600); }
+
+.actionLabel {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  flex: 1;
+}
+
+.actionArrow {
+  font-size: 1rem;
+  color: var(--text-muted);
+  transition: all var(--transition-base);
+}
+
+.actionCard:hover .actionArrow {
+  color: var(--text-secondary);
+  transform: translate(2px, -2px);
+}
+
+/* Main Content Grid - Match Guest Management Layout */
+.contentGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.activityCard,
+.tasksCard,
+.progressCard {
+  background: var(--bg-elevated);
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-base);
+}
+
+.activityCard:hover,
+.tasksCard:hover,
+.progressCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--accent-primary);
+  margin: 0 0 var(--spacing-lg);
+  letter-spacing: -0.02em;
+}
+
+/* Activity Card Internal Elements */
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.activityItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+}
+
+.activityItem:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+.activityIcon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+  color: white;
+}
+
+.activityIcon.guest {
+  background: linear-gradient(135deg, var(--sage-500), var(--sage-600));
+}
+
+.activityIcon.room {
+  background: linear-gradient(135deg, var(--cream-500), var(--cream-600));
+}
+
+.activityIcon.gift {
+  background: linear-gradient(135deg, var(--blush-500), var(--blush-600));
+}
+
+.activityIcon.task {
+  background: linear-gradient(135deg, var(--sage-600), var(--sage-700));
+}
+
+.activityContent {
+  flex: 1;
+}
+
+.activityTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.activityDescription {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-xs) 0;
+  line-height: 1.4;
+}
+
+.activityTime {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Task Card Internal Elements */
+.tasksList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.taskItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+  border: 1px solid transparent;
+}
+
+.taskItem:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+.taskInfo {
+  flex: 1;
+}
+
+.taskTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.taskDescription {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-xs) 0;
+}
+
+.taskDue {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.priorityBadge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-left: var(--spacing-md);
+}
+
+.priorityBadge.high {
+  background: var(--danger-bg);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.priorityBadge.medium {
+  background: var(--warning-bg);
+  color: var(--warning);
+  border: 1px solid var(--warning);
+}
+
+.priorityBadge.low {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+/* Progress Card Internal Elements */
+.progressList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.progressItem {
+  margin-bottom: var(--spacing-md);
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.progressTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.progressPercentage {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+
+/* Status Badges */
+.statBreakdown {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+  margin-top: var(--spacing-md);
+}
+
+.statBreakdown span {
+  font-size: 0.8125rem;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
+.confirmed { 
+  background: var(--success-bg); 
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+.pending { 
+  background: var(--warning-bg); 
+  color: var(--warning);
+  border: 1px solid var(--warning);
+}
+.declined { 
+  background: var(--danger-bg); 
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+.occupied { 
+  background: var(--warning-bg); 
+  color: var(--warning);
+  border: 1px solid var(--warning);
+}
+.available { 
+  background: var(--success-bg); 
+  color: var(--success);
+  border: 1px solid var(--success);
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-top: var(--spacing-md);
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: var(--radius-md);
+  transition: width var(--transition-base);
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .progressCard {
+    grid-column: span 1;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: var(--space-6);
+    align-items: center;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .statsGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+  
+  .statCard {
+    padding: var(--spacing-lg);
+    min-height: 100px;
+  }
+  
+  .statNumber {
+    font-size: 1.875rem;
+  }
+  
+  .statIcon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+  }
+  
+  .actionGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .contentGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .countdown {
+    min-width: 120px;
+    padding: var(--space-5) var(--space-6);
+  }
+  
+  .countdownNumber {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .overview {
+    padding: 0 var(--space-4);
+  }
+  
+  .title {
+    font-size: 1.75rem;
+  }
+  
+  .statCard,
+  .activityCard,
+  .tasksCard,
+  .progressCard {
+    padding: var(--spacing-lg);
+    min-height: auto;
+  }
+  
+  .statIcon {
+    width: 44px;
+    height: 44px;
+    font-size: 1.125rem;
+  }
+  
+  .statNumber {
+    font-size: 1.75rem;
+  }
+  
+  .actionCard {
+    padding: var(--space-5);
+  }
+}
+
+/* Dark Mode - Simplified and Clean */
+[data-theme="dark"] .title {
+  color: var(--accent-primary);
+}
+
+[data-theme="dark"] .subtitle {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .sectionTitle,
+[data-theme="dark"] .cardTitle {
+  color: var(--accent-primary);
+}
+
+/* All cards get consistent dark styling */
+[data-theme="dark"] .statCard,
+[data-theme="dark"] .activityCard,
+[data-theme="dark"] .tasksCard,
+[data-theme="dark"] .progressCard,
+[data-theme="dark"] .actionCard {
+  background: var(--bg-elevated);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .statCard:hover,
+[data-theme="dark"] .activityCard:hover,
+[data-theme="dark"] .tasksCard:hover,
+[data-theme="dark"] .progressCard:hover,
+[data-theme="dark"] .actionCard:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-focus);
+}
+
+/* Icon backgrounds for dark mode */
+[data-theme="dark"] .statCard.sage .statIcon {
+  background: var(--sage-200);
+  color: var(--sage-800);
+}
+
+[data-theme="dark"] .statCard.blush .statIcon {
+  background: var(--blush-200);
+  color: var(--blush-800);
+}
+
+[data-theme="dark"] .statCard.cream .statIcon {
+  background: var(--cream-200);
+  color: var(--cream-800);
+}
+
+[data-theme="dark"] .statCard.neutral .statIcon {
+  background: var(--neutral-200);
+  color: var(--neutral-800);
+}
+
+/* Activity elements dark mode */
+[data-theme="dark"] .activityItem:hover,
+[data-theme="dark"] .taskItem:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .activityTitle,
+[data-theme="dark"] .taskTitle,
+[data-theme="dark"] .progressTitle {
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .activityDescription,
+[data-theme="dark"] .taskDescription {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .activityTime,
+[data-theme="dark"] .taskDue {
+  color: var(--text-muted);
+}
+
+[data-theme="dark"] .progressPercentage {
+  color: var(--accent-primary);
+}

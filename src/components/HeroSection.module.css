@@ -1,0 +1,363 @@
+:root {
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Poppins', sans-serif;
+  --font-hero: 'Dawning of a New Day', cursive;
+  --color-primary: #c4a000;
+  --color-text: #2C3338;
+  --color-text-light: #666666;
+  --color-background: #f8f4f0;
+  --color-sage: #D1D5D0;
+  --color-warm-white: #FAF9F6;
+  --color-beige: #F5F1EA;
+  --max-width: 1200px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes floralReveal {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 0.15; transform: scale(1); }
+}
+
+@keyframes fadeUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    transform: scale(1.1);
+    filter: brightness(0.8);
+  }
+  to { 
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+.hero {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(rgba(251, 248, 238, 0.7), rgba(251, 248, 238, 0.7)),
+              url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&q=80') center/cover no-repeat;
+  z-index: -1;
+  animation: zoomEffect 20s ease infinite alternate;
+}
+
+.heroContent {
+  text-align: center;
+  max-width: var(--max-width);
+  position: relative;
+  background: rgba(251, 248, 238, 0.85);
+  padding: 3rem;
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.heroTitle {
+  font-family: var(--font-hero);
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  font-weight: normal;
+}
+
+.ampersand {
+  font-family: var(--font-hero);
+  font-style: normal;
+  margin: 0 0.2em;
+  font-size: 1.2em;
+  display: inline-block;
+  transform: rotate(-5deg);
+}
+
+.heroDate {
+  font-family: var(--font-secondary);
+  font-size: clamp(1.25rem, 4vw, 1.5rem);
+  color: var(--color-text);
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 300;
+}
+
+.heroCta {
+  margin-top: 2rem;
+}
+
+.rsvpButton {
+  display: inline-block;
+  padding: 1rem 3rem;
+  background-color: var(--color-primary);
+  color: white;
+  text-decoration: none;
+  border-radius: 50px;
+  font-family: var(--font-secondary);
+  font-size: 1.125rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.rsvpButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(196, 160, 0, 0.2);
+}
+
+@keyframes zoomEffect {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.heroSection {
+  height: 100vh;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000;
+  overflow: hidden;
+}
+
+.parallaxBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 110%;
+  background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+  animation: scaleIn 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center;
+  z-index: 1;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.4)
+  );
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  max-width: 1200px;
+  padding: 0 2rem;
+  margin: 0 auto;
+  color: #fff;
+}
+
+.preTitle {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  margin-bottom: 2rem;
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+.names {
+  font-family: 'Dawning of a New Day', cursive;
+  font-size: 8.5rem;
+  line-height: 1;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+}
+
+.subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--color-text);
+  margin: 2rem 0;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 0.6s forwards;
+}
+
+.date {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  margin-top: 3rem;
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
+}
+
+.scrollIndicator {
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 1.2s forwards;
+}
+
+.scrollText {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.scrollLine {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--color-sage);
+  margin: 2rem auto;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out 1s forwards;
+}
+
+/* Add a subtle mesh overlay */
+.heroSection::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 0h2v2H1V0zm4 0h2v2H5V0zm4 0h2v2H9V0zm4 0h2v2h-2V0zm4 0h2v2h-2V0zM1 4h2v2H1V4zm4 0h2v2H5V4zm4 0h2v2H9V4zm4 0h2v2h-2V4zm4 0h2v2h-2V4zM1 8h2v2H1V8zm4 0h2v2H5V8zm4 0h2v2H9V8zm4 0h2v2h-2V8zm4 0h2v2h-2V8zM1 12h2v2H1v-2zm4 0h2v2H5v-2zm4 0h2v2H9v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2zM1 16h2v2H1v-2zm4 0h2v2H5v-2zm4 0h2v2H9v-2zm4 0h2v2h-2v-2zm4 0h2v2h-2v-2z' fill='rgba(255,255,255,0.1)' fill-rule='evenodd'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .names {
+    font-size: 7rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 1rem;
+  }
+
+  .heroContent {
+    padding: 2rem;
+    margin: 1rem;
+  }
+
+  .heroTitle {
+    margin-bottom: 0.5rem;
+  }
+
+  .heroDate {
+    margin-bottom: 1.5rem;
+  }
+
+  .hero::before {
+    background-position: center 20%;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .names {
+    font-size: 5rem;
+  }
+  
+  .ampersand {
+    font-size: 4rem;
+  }
+
+  .date {
+    font-size: 1rem;
+  }
+
+  .content {
+    padding: 3rem 1.5rem;
+    margin: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .names {
+    font-size: 3.5rem;
+  }
+
+  .ampersand {
+    font-size: 2.5rem;
+  }
+
+  .preTitle {
+    font-size: 0.75rem;
+  }
+
+  .date {
+    font-size: 0.875rem;
+  }
+}

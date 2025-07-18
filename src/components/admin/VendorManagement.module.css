@@ -1,0 +1,122 @@
+/* VendorManagement Component with Dark Mode Support */
+@import '../../styles/themes.css';
+
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-xs);
+  letter-spacing: -0.025em;
+}
+
+.subtitle {
+  font-size: 1.125rem;
+  color: var(--text-secondary);
+  margin: 0;
+  font-weight: 400;
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background: white;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--neutral-200);
+}
+
+.placeholder p {
+  font-size: 1.125rem;
+  color: var(--neutral-500);
+  margin: 0;
+  font-style: italic;
+}
+
+/* Dark Mode - Consistent Styling */
+[data-theme="dark"] .title {
+  color: var(--accent-primary);
+}
+
+[data-theme="dark"] .subtitle {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .container {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Cards and main elements */
+[data-theme="dark"] .card,
+[data-theme="dark"] .vendorCard,
+[data-theme="dark"] .contractCard,
+[data-theme="dark"] .modal {
+  background: var(--bg-elevated);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .vendorCard:hover,
+[data-theme="dark"] .contractCard:hover {
+  background: var(--bg-tertiary);
+  border-color: var(--border-focus);
+}
+
+/* Status badges */
+[data-theme="dark"] .statusBadge.confirmed {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+[data-theme="dark"] .statusBadge.pending {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+[data-theme="dark"] .statusBadge.cancelled {
+  background: var(--danger-bg);
+  color: var(--danger);
+}
+
+/* Form elements */
+[data-theme="dark"] .formGroup input,
+[data-theme="dark"] .formGroup select,
+[data-theme="dark"] .formGroup textarea {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .formGroup label {
+  color: var(--text-secondary);
+}
+
+/* Buttons */
+[data-theme="dark"] .actionButton {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] .primaryButton {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: var(--text-inverted);
+}

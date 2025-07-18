@@ -1,0 +1,40 @@
+apiVersion: v2
+name: mj25-wedding
+description: Marlene & Jose's Wedding Website - Custom TrueNAS SCALE App
+type: application
+version: 1.0.0
+appVersion: "1.0.0"
+keywords:
+  - wedding
+  - website
+  - react
+  - vite
+home: https://github.com/JIGLE/MJ25
+sources:
+  - https://github.com/JIGLE/MJ25
+maintainers:
+  - name: JIGLE
+    email: contact@jigle.dev
+icon: https://raw.githubusercontent.com/your-username/mj25-wedding/main/public/favicon.ico
+annotations:
+  truenas.org/app_metadata: |
+    app_categories:
+      - entertainment
+    app_readme: |
+      # MJ25 Wedding Website
+      
+      A beautiful, modern wedding website built with React and Vite.
+      
+      ## Features
+      - RSVP Management
+      - Photo Gallery
+      - Multi-language Support
+      - Admin Panel
+      - Firebase Integration
+      
+      ## Access
+      The website will be available at: http://your-truenas-ip:30080
+    
+    screenshots:
+      - https://raw.githubusercontent.com/JIGLE/MJ25/main/docs/screenshot1.png
+      - https://raw.githubusercontent.com/JIGLE/MJ25/main/docs/screenshot2.png

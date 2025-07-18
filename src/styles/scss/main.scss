@@ -1,0 +1,19 @@
+// Variables
+$primary-color: #333;
+$secondary-color: #666;
+
+// Base styles
+@import 'base/reset';
+@import 'base/typography';
+
+// Components
+@import 'components/buttons';
+@import 'components/navigation';
+
+// Layouts
+@import 'layouts/header';
+@import 'layouts/main';
+@import 'layouts/footer';
+
+// Import existing styles from public directory
+@import '../../../public/css/style.css';

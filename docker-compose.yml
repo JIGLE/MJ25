@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  mj25:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: mj25-app
+    restart: unless-stopped
+    ports:
+      - "30080:80"
+    environment:
+      - NODE_ENV=production
+    volumes:
+      - /mnt/HDD/apps/nginx-proxy-manager/websites/mj25/data:/app/data
+    networks:
+      - mj25-network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  mj25-network:
+    driver: bridge
+

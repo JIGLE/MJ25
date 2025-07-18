@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Light mode */
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #f1f3f5;
+  --bg-elevated: #ffffff;
+  --bg-input: #ffffff;
+  --bg-tag: #f1f3f5;
+  
+  --text-primary: #1a1c1e;
+  --text-secondary: #44474a;
+  --text-tertiary: #6c7075;
+  --text-on-primary: #ffffff;
+  
+  --border-color: #e4e7eb;
+  
+  --primary: #0066ff;
+  --primary-dark: #0052cc;
+  --primary-text: #0052cc;
+  --primary-container: #e5f0ff;
+  --primary-container-hover: #cce3ff;
+  
+  --success: #087f5b;
+  --success-text: #066b4d;
+  --success-container: #e6f8f3;
+  
+  --warning: #f59f00;
+  --warning-text: #b97800;
+  --warning-container: #fff4e5;
+  
+  --info: #1c7ed6;
+  --info-text: #1971c2;
+  --info-container: #e7f5ff;
+  
+  --danger: #e03131;
+  --danger-text: #c92a2a;
+  --danger-container: #ffe8e8;
+  --danger-container-hover: #ffd5d5;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1c1e;
+  --bg-secondary: #22252a;
+  --bg-elevated: #2c3038;
+  --bg-input: #22252a;
+  --bg-tag: #31353d;
+  
+  --text-primary: #e9ecef;
+  --text-secondary: #adb5bd;
+  --text-tertiary: #868e96;
+  --text-on-primary: #ffffff;
+  
+  --border-color: #31353d;
+  
+  --primary: #339af0;
+  --primary-dark: #1c7ed6;
+  --primary-text: #74b9ff;
+  --primary-container: #1c3a5f;
+  --primary-container-hover: #234876;
+  
+  --success: #40c057;
+  --success-text: #69db7c;
+  --success-container: #0f3a2c;
+  
+  --warning: #fcc419;
+  --warning-text: #ffd43b;
+  --warning-container: #473b16;
+  
+  --info: #339af0;
+  --info-text: #74c0fc;
+  --info-container: #1b3a57;
+  
+  --danger: #fa5252;
+  --danger-text: #ff6b6b;
+  --danger-container: #3f2329;
+  --danger-container-hover: #4a2830;
+}
+
+:root {
+  --color-dark: #1a1a1a;
+  --color-light: #ffffff;
+  --color-accent: #D4BEA3;
+  --color-text: #333333;
+  --font-primary: 'Dawning of a New Day', cursive;
+  --font-secondary: 'Montserrat', sans-serif;
+  --font-tertiary: 'Cormorant Garamond', serif;
+  --spacing-unit: 8px;
+}
+
+@keyframes fadeUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(30px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.sectionTitle {
+  font-family: var(--font-primary);
+  font-size: 4.5rem;
+  color: var(--color-dark);
+  margin-bottom: calc(var(--spacing-unit) * 6);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.sectionTitle.visible {
+  animation: fadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.sectionSubtitle {
+  font-family: var(--font-secondary);
+  font-size: 0.875rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: calc(var(--spacing-unit) * 4);
+}
+
+.textReveal {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+}
+
+.textReveal::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-accent);
+  transform: translateX(-100%);
+}
+
+.textReveal.visible::after {
+  animation: slideIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.section {
+  padding: calc(var(--spacing-unit) * 20) calc(var(--spacing-unit) * 4);
+  position: relative;
+  overflow: hidden;
+}
+
+.section:nth-child(odd) {
+  background-color: #f9f9f9;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.parallaxImage {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.parallaxImage.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: calc(var(--spacing-unit) * 10) calc(var(--spacing-unit) * 2);
+  }
+
+  .sectionTitle {
+    font-size: 3.5rem;
+  }
+}
