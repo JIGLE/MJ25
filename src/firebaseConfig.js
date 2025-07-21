@@ -4,16 +4,15 @@ import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
 import { getStorage } from "firebase/storage";
 
-// Your web app's Firebase configuration (copied from old project)
-// TODO: Consider moving sensitive keys to environment variables for production builds
+// Your web app's Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: "AIzaSyCiEcAjNMf3pKf0f1OoNReKlklw03TIjko", // Replace with your actual API key if different
-  authDomain: "wedding-website-37d74.firebaseapp.com",
-  databaseURL: "https://wedding-website-37d74-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "wedding-website-37d74",
-  storageBucket: "wedding-website-37d74.appspot.com",
-  // messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // Optional
-  // appId: "YOUR_APP_ID" // Optional
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || "AIzaSyCiEcAjNMf3pKf0f1OoNReKlklw03TIjko",
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || "wedding-website-37d74.firebaseapp.com",
+  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL || "https://wedding-website-37d74-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || "wedding-website-37d74",
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || "wedding-website-37d74.appspot.com",
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
