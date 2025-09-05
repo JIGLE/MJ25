@@ -132,15 +132,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      <section id="rsvp" className={styles.section}>
-        <div className={styles.sectionContent}>
-          <h2 className={styles.sectionTitle}>{t('rsvp')}</h2>
-          <div className={styles.rsvpClosed}>
-            <p className={styles.rsvpMessage}>{t('rsvpClosed')}</p>
-            <p className={styles.rsvpSubMessage}>{t('rsvpThankYou')}</p>
-          </div>
-        </div>
-      </section>
+  {/* RSVP section removed */}
     </div>
   );
 };

@@ -8,21 +8,6 @@
     font-family: Roboto, sans-serif;
 }
 
-#rsvp-data,
-#room-data,
-#add-room,
-#edit-room {
-    margin: 20px;
-    background-color: #f8f4f0;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    flex-basis: calc(50% - 40px); /* Two items per row, accounting for margin */
-    min-width: 300px; /* Reduced min-width */
-    box-sizing: border-box;
-}
-
 #add-room-form label,
 #edit-room-form label {
     display: block;
@@ -54,26 +39,7 @@
     margin: 0 10px;
 }
 
-#rsvp-table,
-#room-table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-#rsvp-table th,
-#rsvp-table td,
-#room-table th,
-#room-table td {
-    border: 1px solid #d9d9d9;
-    padding: 8px;
-    text-align: left;
-}
-
-#rsvp-table th,
-#room-table th {
-    background-color: #d9d9d9;
-    color: #0033cc;
-}
+/* Admin room & RSVP styles removed */
 
 /* Add Room Styles */
 #add-room-form,

@@ -72,51 +72,6 @@ button:focus-visible {
   }
 }
 
-.available-rooms-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  padding: 20px;
-}
-
-.room-card {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.room-card:hover {
-  transform: translateY(-5px);
-}
-
-.room-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.room-details {
-  padding: 15px;
-}
-
-.room-title {
-  font-size: 1.25rem;
-  margin-bottom: 5px;
-}
-
-.room-capacity,
-.room-price {
-  font-size: 1rem;
-  margin-bottom: 8px;
-}
-
-.room-description {
-  font-size: 0.875rem;
-  color: #555;
-}
-
 #intro {
   text-align: center;
   padding: 100px 0;
@@ -148,7 +103,4 @@ button:focus-visible {
   color: rgba(255, 255, 255, 0.87);
 }
 
-.rsvp-page-container.py-5 {
-  padding-top: 1.5rem !important;
-  padding-bottom: 1.5rem !important;
-}
+/* Room and RSVP styles removed */
