@@ -29,7 +29,6 @@ import styles from './WeddingDashboard.module.css';
 function WeddingDashboard() {
   const [activeSection, setActiveSection] = useState('overview');
   const [dashboardData, setDashboardData] = useState({
-  guests: {},
     gifts: {},
     vendors: {},
     budget: {},
@@ -59,7 +58,6 @@ function WeddingDashboard() {
   // Load all data from Firebase
   useEffect(() => {
     const refs = {
-  guests: ref(db, 'rsvps'),
       gifts: ref(db, 'gifts'),
       vendors: ref(db, 'vendors'),
       budget: ref(db, 'budget'),
@@ -99,7 +97,7 @@ function WeddingDashboard() {
         return <DashboardOverview data={dashboardData} />;
   // removed guest, seating, and room sections
       case 'gifts':
-        return <GiftTracker data={dashboardData.gifts} guests={dashboardData.guests} />;
+        return <GiftTracker data={dashboardData.gifts} />;
       case 'timeline':
         return <EventTimeline data={dashboardData.timeline} />;
       case 'vendors':
