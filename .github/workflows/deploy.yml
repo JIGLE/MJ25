@@ -1,4 +1,5 @@
 name: Build and Deploy Wedding Website
+name: Build and Deploy Wedding Website
 
 on:
   push:
@@ -12,115 +13,66 @@ env:
   IMAGE_NAME: jigle/mj25
 
 jobs:
-  test:
+  build:
+    name: Build assets
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
-    
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
-    
-    - name: Install dependencies
-      run: |
-        # Try npm ci first, fallback to npm install if lockfile is out of sync
-        npm ci || npm install
-    
-    - name: Run linting
-      run: npm run lint
-      continue-on-error: true
-    
-    - name: Build project
-      run: npm run build
+      - uses: actions/checkout@v4
 
-  build-and-push:
-    needs: test
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: |
+          npm ci || npm install
+
+      - name: Lint (non-blocking)
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Build project
+        run: npm run build
+
+  publish:
+    name: Publish images
+    needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: ${{ github.event_name == 'push' }}
     env:
-      # Optional Docker Hub credentials (set these as repository secrets to enable Docker Hub push)
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-  # Derived Docker Hub image name using the provided username and repo
-  DOCKERHUB_IMAGE: docker.io/${{ env.DOCKERHUB_USERNAME }}/mj25
+  # No external mirror configured; only GHCR push is performed
     permissions:
       contents: read
       packages: write
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '20'
-        cache: 'npm'
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Install dependencies
-      run: |
-        # Try npm ci first, fallback to npm install if lockfile is out of sync
-        npm ci || npm install
+      - name: Compute GHCR tags
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=latest,enable={{is_default_branch}}
 
-    - name: Build application
-      run: npm run build
-
-    - name: Log in to Container Registry
-      uses: docker/login-action@v3
-      with:
-        registry: ${{ env.REGISTRY }}
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Extract GHCR metadata
-      id: meta
-      uses: docker/metadata-action@v5
-      with:
-        images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-        tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=raw,value=latest,enable={{is_default_branch}}
-
-    - name: Extract Docker Hub metadata
-      id: meta_docker
-      uses: docker/metadata-action@v5
-      with:
-        images: ${{ env.DOCKERHUB_IMAGE }}
-        tags: |
-          type=ref,event=branch
-          type=ref,event=pr
-          type=semver,pattern={{version}}
-          type=semver,pattern={{major}}.{{minor}}
-          type=raw,value=latest,enable={{is_default_branch}}
-
-    - name: Build and push Docker image (GHCR)
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-
-    # Optional: Also push the same image to Docker Hub (mirror)
-    # Requires repository secrets: DOCKERHUB_USERNAME and DOCKERHUB_TOKEN
-    - name: Log in to Docker Hub
-      if: env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != ''
-      uses: docker/login-action@v3
-      with:
-        registry: docker.io
-        username: ${{ env.DOCKERHUB_USERNAME }}
-        password: ${{ env.DOCKERHUB_TOKEN }}
-
-    - name: Build and push to Docker Hub
-      if: env.DOCKERHUB_USERNAME && env.DOCKERHUB_TOKEN
-      uses: docker/build-push-action@v5
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta_docker.outputs.tags }}
-        labels: ${{ steps.meta_docker.outputs.labels }}
+      - name: Build and push to GHCR
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+  # end publish steps
