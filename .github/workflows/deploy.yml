@@ -10,18 +10,6 @@ on:
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: jigle/mj25
-name: Build and Deploy Website
-
-on:
-  push:
-    branches: [ main, develop ]
-    tags: [ 'v*' ]
-  pull_request:
-    branches: [ main ]
-
-env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: jigle/mj25
 
 jobs:
   build:
