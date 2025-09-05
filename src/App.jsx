@@ -3,7 +3,6 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 // Import Page Components
 import HomePage from './pages/HomePage';
-import RsvpPage from './pages/RsvpPage';
 import AdminPage from './pages/AdminPage';
 import LoginPage from './pages/LoginPage';
 
@@ -16,7 +15,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/rsvp" element={<RsvpPage />} />
+  {/* RSVP route removed */}
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

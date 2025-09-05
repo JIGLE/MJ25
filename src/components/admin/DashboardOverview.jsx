@@ -14,21 +14,7 @@ import {
 import styles from './DashboardOverview.module.css';
 
 function DashboardOverview({ data }) {
-  const { guests = {}, rooms = {}, bookings = {}, checklist = {} } = data;
-
-  // Calculate statistics
-  const guestStats = {
-    total: Object.keys(guests).length,
-    confirmed: Object.values(guests).filter(g => g.attending === true).length,
-    declined: Object.values(guests).filter(g => g.attending === false).length,
-    pending: Object.values(guests).filter(g => g.attending === undefined).length
-  };
-
-  const roomStats = {
-    total: Object.keys(rooms).length,
-    occupied: Object.values(bookings).length,
-    available: Object.keys(rooms).length - Object.values(bookings).length
-  };
+  const { checklist = {} } = data || {};
 
   const checklistStats = {
     total: Object.keys(checklist).length,
@@ -36,17 +22,14 @@ function DashboardOverview({ data }) {
   };
 
   const quickActions = [
-    { label: 'Add Guest', icon: BsPersonPlusFill, color: 'sage', action: 'guests' },
-    { label: 'Manage Seating', icon: BsPeopleFill, color: 'sage', action: 'seating' },
-    { label: 'Room Assignments', icon: BsHouseFill, color: 'blush', action: 'rooms' },
-    { label: 'Wedding Checklist', icon: BsClipboardCheckFill, color: 'cream', action: 'checklist' }
+    { label: 'Wedding Checklist', icon: BsClipboardCheckFill, color: 'cream', action: 'checklist' },
+    { label: 'Vendor Management', icon: BsPersonCheckFill, color: 'blush', action: 'vendors' }
   ];
 
   const recentActivity = [
-    { type: 'guest', message: 'Sarah & Mike confirmed attendance', time: '2 hours ago', icon: BsPersonCheckFill },
-    { type: 'room', message: 'Honeymoon suite assigned', time: '4 hours ago', icon: BsHouseFill },
     { type: 'task', message: 'Venue decorations confirmed', time: '1 day ago', icon: BsCheckCircleFill },
-    { type: 'task', message: 'Flowers ordered - completed', time: '2 days ago', icon: BsCheckCircleFill }
+    { type: 'task', message: 'Flowers ordered - completed', time: '2 days ago', icon: BsCheckCircleFill },
+    { type: 'task', message: 'Vendor contracts signed', time: '3 days ago', icon: BsPersonCheckFill }
   ];
 
   const upcomingTasks = [
@@ -74,36 +57,7 @@ function DashboardOverview({ data }) {
 
       {/* Statistics Cards */}
       <div className={styles.statsGrid}>
-        <div className={`${styles.statCard} ${styles.sage}`}>
-          <div className={styles.statHeader}>
-            <BsPeopleFill className={styles.statIcon} />
-            <span className={styles.statLabel}>Guests</span>
-          </div>
-          <div className={styles.statNumber}>{guestStats.confirmed}</div>
-          <div className={styles.statDetail}>
-            of {guestStats.total} confirmed
-          </div>
-          <div className={styles.statBreakdown}>
-            <span className={styles.confirmed}>{guestStats.confirmed} confirmed</span>
-            <span className={styles.pending}>{guestStats.pending} pending</span>
-            <span className={styles.declined}>{guestStats.declined} declined</span>
-          </div>
-        </div>
-
-        <div className={`${styles.statCard} ${styles.blush}`}>
-          <div className={styles.statHeader}>
-            <BsHouseFill className={styles.statIcon} />
-            <span className={styles.statLabel}>Rooms</span>
-          </div>
-          <div className={styles.statNumber}>{roomStats.occupied}</div>
-          <div className={styles.statDetail}>
-            of {roomStats.total} assigned
-          </div>
-          <div className={styles.statBreakdown}>
-            <span className={styles.occupied}>{roomStats.occupied} occupied</span>
-            <span className={styles.available}>{roomStats.available} available</span>
-          </div>
-        </div>
+  {/* Removed Guests and Rooms cards - kept main summary and checklist */}
       </div>
 
       {/* Quick Actions */}
@@ -186,39 +140,7 @@ function DashboardOverview({ data }) {
               </div>
             </div>
 
-            <div className={styles.progressItem}>
-              <div className={styles.progressLabel}>
-                <span>RSVP Responses</span>
-                <span className={styles.progressPercent}>
-                  {guestStats.total > 0 ? Math.round(((guestStats.confirmed + guestStats.declined) / guestStats.total) * 100) : 0}%
-                </span>
-              </div>
-              <div className={styles.progressBarContainer}>
-                <div 
-                  className={styles.progressBarFill}
-                  style={{ 
-                    width: `${guestStats.total > 0 ? ((guestStats.confirmed + guestStats.declined) / guestStats.total) * 100 : 0}%` 
-                  }}
-                ></div>
-              </div>
-            </div>
-
-            <div className={styles.progressItem}>
-              <div className={styles.progressLabel}>
-                <span>Room Assignments</span>
-                <span className={styles.progressPercent}>
-                  {roomStats.total > 0 ? Math.round((roomStats.occupied / roomStats.total) * 100) : 0}%
-                </span>
-              </div>
-              <div className={styles.progressBarContainer}>
-                <div 
-                  className={styles.progressBarFill}
-                  style={{ 
-                    width: `${roomStats.total > 0 ? (roomStats.occupied / roomStats.total) * 100 : 0}%` 
-                  }}
-                ></div>
-              </div>
-            </div>
+            {/* Removed RSVP Responses and Room Assignments progress - keeping checklist only */}
           </div>
         </div>
       </div>
