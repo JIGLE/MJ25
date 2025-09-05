@@ -108,17 +108,10 @@ const Navbar = () => {
               <li><a href="/#story" onClick={toggleMenu}>{t('ourStory')}</a></li>
               <li><a href="/#venue" onClick={toggleMenu}>{t('theVenue')}</a></li>
               <li><a href="/#schedule" onClick={toggleMenu}>{t('theDay')}</a></li>
-              <li><a href="/#rsvp" onClick={toggleMenu} className={styles.rsvpButton}>{t('rsvp')}</a></li>
+              {/* RSVP removed from menu - replaced by direct link inside site content if needed */}
               <li><a href="/gallery" onClick={toggleMenu}>{t('gallery')}</a></li>
               <li className={styles.adminAccessMenuItem}>
-                <button onClick={toggleAdminPanel} className={styles.adminAccessButton}>
-                  {isAdmin ? t('adminDashboard') : t('adminAccess')}
-                </button>
-                {showAdminPanel && isAdmin && (
-                  <div className={styles.adminPanel}>
-                    <a href="/admin" onClick={toggleMenu}>Admin Dashboard</a>
-                  </div>
-                )}
+                <a href="/admin" className={styles.adminAccessButton}>{t('adminDashboard')}</a>
               </li>
             </ul>
           </div>

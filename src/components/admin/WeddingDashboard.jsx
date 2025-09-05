@@ -3,9 +3,6 @@ import { auth } from '../../firebaseConfig';
 import { signOut } from 'firebase/auth';
 import { db } from '../../firebaseConfig';
 import { ref, onValue } from 'firebase/database';
-import GuestManagement from './GuestManagement';
-import SeatingPlan from './SeatingPlan';
-import RoomManagement from './RoomManagement';
 import GiftTracker from './GiftTracker';
 import VendorManagement from './VendorManagement';
 import BudgetTracker from './BudgetTracker';
@@ -32,9 +29,7 @@ import styles from './WeddingDashboard.module.css';
 function WeddingDashboard() {
   const [activeSection, setActiveSection] = useState('overview');
   const [dashboardData, setDashboardData] = useState({
-    guests: {},
-    rooms: {},
-    bookings: {},
+  guests: {},
     gifts: {},
     vendors: {},
     budget: {},
@@ -64,9 +59,7 @@ function WeddingDashboard() {
   // Load all data from Firebase
   useEffect(() => {
     const refs = {
-      guests: ref(db, 'rsvps'),
-      rooms: ref(db, 'rooms'),
-      bookings: ref(db, 'bookings'),
+  guests: ref(db, 'rsvps'),
       gifts: ref(db, 'gifts'),
       vendors: ref(db, 'vendors'),
       budget: ref(db, 'budget'),
@@ -92,9 +85,7 @@ function WeddingDashboard() {
 
   const navigationItems = [
     { id: 'overview', label: 'Overview', icon: BsBarChartFill, color: 'sage', section: 'planning' },
-    { id: 'guests', label: 'Guest Management', icon: BsPeopleFill, color: 'sage', section: 'planning' },
-    { id: 'seating', label: 'Seating Plan', icon: BsGridFill, color: 'sage', section: 'planning' },
-    { id: 'rooms', label: 'Room Management', icon: BsHouseFill, color: 'sage', section: 'planning' },
+  // Removed: Guest Management, Seating Plan, Room Management
     { id: 'gifts', label: 'Gift Tracker', icon: BsGiftFill, color: 'blush', section: 'planning' },
     { id: 'timeline', label: 'Event Timeline', icon: BsCalendarEventFill, color: 'blush', section: 'planning' },
     { id: 'vendors', label: 'Vendor Management', icon: BsPersonLinesFill, color: 'cream', section: 'planning' },
@@ -106,12 +97,7 @@ function WeddingDashboard() {
     switch (activeSection) {
       case 'overview':
         return <DashboardOverview data={dashboardData} />;
-      case 'guests':
-        return <GuestManagement data={dashboardData.guests} />;
-      case 'seating':
-        return <SeatingPlan guests={dashboardData.guests} />;
-      case 'rooms':
-        return <RoomManagement data={dashboardData} />;
+  // removed guest, seating, and room sections
       case 'gifts':
         return <GiftTracker data={dashboardData.gifts} guests={dashboardData.guests} />;
       case 'timeline':
