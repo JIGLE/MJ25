@@ -8,6 +8,7 @@
     "dev": "vite --host 0.0.0.0",
     "build": "vite build",
     "preview": "vite preview --host 0.0.0.0",
+    "release": "./scripts/release.sh",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "lint:fix": "eslint . --ext js,jsx --fix"
   },
@@ -26,6 +27,7 @@
   "devDependencies": {
     "@types/react": "^19.0.12",
     "@types/react-dom": "^19.0.4",
+  "globals": "^15.0.0",
     "@vitejs/plugin-react": "^4.6.0",
     "eslint": "^9.23.0",
     "eslint-plugin-react": "^7.37.5",
