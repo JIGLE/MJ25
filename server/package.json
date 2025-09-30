@@ -1,0 +1,14 @@
+{
+  "name": "mj25-server",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "immich-proxy.js",
+  "scripts": {
+    "start": "node immich-proxy.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-rate-limit": "^6.7.0",
+    "node-fetch": "^3.4.0"
+  }
+}
