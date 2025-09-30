@@ -43,7 +43,7 @@ jobs:
     env:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-      DOCKERHUB_IMAGE: docker.io/${{ env.DOCKERHUB_USERNAME }}/mj25
+      DOCKERHUB_IMAGE: docker.io/${{ secrets.DOCKERHUB_USERNAME }}/mj25
     permissions:
       contents: read
       packages: write
