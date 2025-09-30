@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './BudgetTracker.module.css';
 
-function BudgetTracker({ data = {} }) {
+function BudgetTracker() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

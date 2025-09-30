@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './EventTimeline.module.css';
 
-function EventTimeline({ data = {} }) {
+function EventTimeline() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

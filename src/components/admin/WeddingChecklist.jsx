@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './WeddingChecklist.module.css';
 
-function WeddingChecklist({ data = {} }) {
+function WeddingChecklist() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

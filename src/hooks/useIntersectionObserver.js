@@ -15,13 +15,14 @@ export const useIntersectionObserver = (options = {}) => {
       rootMargin: options.rootMargin || '0px'
     });
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current);
+    const current = elementRef.current;
+    if (current) {
+      observer.observe(current);
     }
 
     return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current);
+      if (current) {
+        try { observer.unobserve(current); } catch (e) { /* ignore */ }
       }
     };
   }, [options.threshold, options.rootMargin]);

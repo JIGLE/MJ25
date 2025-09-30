@@ -89,20 +89,7 @@ function GroupsManager() {
     }
   };
 
-  const addGroupToDatabase = async (name) => {
-    setError('');
-    if (!name) {
-      setError('Please provide a valid group name.');
-      return;
-    }
-
-    try {
-      await push(groupsRef, { name: name });
-    } catch (err) {
-      console.error("Error adding group:", err);
-      setError('Error adding group: ' + err.message);
-    }
-  };
+  // addGroupToDatabase removed — use handleAddGroup or handleBulkAddGroups instead
 
     const handleBulkAddGroups = async (event) => {
     event.preventDefault();

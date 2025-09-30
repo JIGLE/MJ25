@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './VendorManagement.module.css';
 
-function VendorManagement({ data = {} }) {
+function VendorManagement() {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
