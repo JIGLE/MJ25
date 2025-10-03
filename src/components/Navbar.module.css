@@ -11,6 +11,47 @@
   color: var(--color-text);
 }
 
+/* New simplified top header for md+ */
+.topHeader {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+.leftPlaceholder, .rightPlaceholder { width: 2rem; }
+.topHeader .logo { position: static; transform: none; font-size: 1.125rem; }
+
+/* Mobile bottom navigation */
+.mobileBottomNav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 64px;
+  background: rgba(255,255,255,0.95);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  z-index: 1000;
+}
+.navItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: var(--color-primary, rgb(0,51,204));
+  font-size: 11px;
+}
+.navItem svg { margin-bottom: 4px; }
+
 .hidden {
   opacity: 0;
   visibility: hidden;
@@ -286,4 +327,9 @@
   .langSelector button {
     padding: 0.25rem;
   }
+}
+
+@media (min-width: 769px) {
+  .mobileBottomNav { display: none; }
+  .topHeader { display: flex; }
 }

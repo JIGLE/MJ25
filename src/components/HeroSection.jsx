@@ -7,7 +7,7 @@ const HeroSection = () => {
   const parallaxRef = useRef(null);
 
   const formatDate = () => {
-    const date = new Date(2025, 8, 23); // September 23, 2025
+    const date = new Date(2025, 8, 13); // September 13, 2025
     const options = {
       year: 'numeric',
       month: 'long',
@@ -32,7 +32,9 @@ const HeroSection = () => {
 
   return (
     <section className={styles.heroSection}>
-      <div ref={parallaxRef} className={styles.parallaxBg} />
+      <div ref={parallaxRef} className={styles.parallaxBg} aria-hidden="true" />
+      {/* Decorative image for screen readers (kept visually hidden) */}
+      <img src="/assets/hero.jpg" alt="Marlene and Jose" className={styles.srOnly} />
       <div className={styles.overlay} />
       <div className={styles.content}>
         <div className={styles.preTitle}>{t('ourWedding')}</div>
@@ -40,6 +42,10 @@ const HeroSection = () => {
           Marlene <span className={styles.ampersand}>&</span> Jose
         </h1>
         <div className={styles.date}>{formatDate()}</div>
+        <div className={styles.eventRecap}>
+          <p className={styles.recapText}>{t('eventRecap')}</p>
+          <a href="/gallery" className={styles.softCta}>{t('viewGallery')}</a>
+        </div>
       </div>
       <div className={styles.scrollIndicator}>
         <div className={styles.scrollText}>Scroll</div>

@@ -1,123 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
-import { auth } from '../firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
 import styles from './Navbar.module.css';
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
-  const { t, i18n } = useTranslation();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [showAdminPanel, setShowAdminPanel] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
-
-  // Check admin status
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        const tokenResult = await user.getIdTokenResult();
-        setIsAdmin(tokenResult?.claims?.admin === true);
-      } else {
-        setIsAdmin(false);
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  // Handle scroll effect
-  useEffect(() => {
-    const handleScroll = () => {
-      if (isHomePage) {
-        setIsScrolled(window.scrollY > window.innerHeight * 0.8);
-      } else {
-        setIsScrolled(window.scrollY > 50);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]);
-
-  // Handle language change
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-  };
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const toggleAdminPanel = (e) => {
-    e.stopPropagation();
-    if (!isAdmin) {
-      window.location.href = '/admin'; // Redirect to admin page for login
-    } else {
-      setShowAdminPanel(!showAdminPanel);
-    }
-  };
-
-  // Hide navbar on admin pages
-  const isAdminPage = location.pathname.startsWith('/admin');
-  if (isAdminPage) return null;
+  const isHome = location.pathname === '/';
 
   return (
-    <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''} ${isHomePage && !isScrolled ? styles.hidden : ''}`}>
-      <div className={styles.navContainer}>
-        <a href="/" className={styles.logo}>
-          M<span className={styles.ampersand}>&</span>J
+    <>
+      {/* Top header visible on md+ */}
+      <header className={`${styles.topHeader}`}> 
+        <div className={styles.leftPlaceholder} />
+        <Link to="/" className={styles.logo}>The Wedding</Link>
+        <div className={styles.rightPlaceholder} />
+      </header>
+
+      {/* Bottom mobile nav */}
+      <nav className={styles.mobileBottomNav} role="navigation" aria-label="Primary">
+        <Link to="/" className={styles.navItem} aria-current={isHome ? 'page' : undefined}>
+          <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M224,115.55V208a16,16,0,0,1-16,16H168a16,16,0,0,1-16-16V168a8,8,0,0,0-8-8H112a8,8,0,0,0-8,8v40a16,16,0,0,1-16,16H48a16,16,0,0,1-16-16V115.55a16,16,0,0,1,5.17-11.78l80-75.48.11-.11a16,16,0,0,1,21.53,0,1.14,1.14,0,0,0,.11.11l80,75.48A16,16,0,0,1,224,115.55Z"></path></svg>
+          <span>Home</span>
+        </Link>
+
+        <a href="#story" className={styles.navItem}>
+          <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M117.25,157.92a60,60,0,1,0-66.5,0A95.83,95.83,0,0,0,3.53,195.63a8,8,0,1,0,13.4,8.74,80,80,0,0,1,134.14,0,8,8,0,0,0,13.4-8.74A95.83,95.83,0,0,0,117.25,157.92ZM40,108a44,44,0,1,1,44,44A44.05,44.05,0,0,1,40,108Zm210.14,98.7a8,8,0,0,1-11.07-2.33A79.83,79.83,0,0,0,172,168a8,8,0,0,1,0-16,44,44,0,1,0-16.34-84.87,8,8,0,1,1-5.94-14.85,60,60,0,0,1,55.53,105.64,95.83,95.83,0,0,1,47.22,37.71A8,8,0,0,1,250.14,206.7Z"></path></svg>
+          <span>Our Story</span>
         </a>
 
-        <div className={styles.langSelector}>
-          <button 
-            onClick={() => changeLanguage('pt-PT')} 
-            className={i18n.language === 'pt-PT' ? styles.active : ''}
-          >
-            PT
-          </button>
-          <button 
-            onClick={() => changeLanguage('es-ES')} 
-            className={i18n.language === 'es-ES' ? styles.active : ''}
-          >
-            ES
-          </button>
-          <button 
-            onClick={() => changeLanguage('en-UK')} 
-            className={i18n.language === 'en-UK' ? styles.active : ''}
-          >
-            EN
-          </button>
-        </div>
+        <Link to="/gallery" className={styles.navItem}>
+          <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-26.07-26.06a16,16,0,0,0-22.63,0l-20,20-44-44a16,16,0,0,0-22.62,0L40,149.37V56ZM40,172l52-52,80,80H40Zm176,28H194.63l-36-36,20-20L216,181.38V200ZM144,100a12,12,0,1,1,12,12A12,12,0,0,1,144,100Z"></path></svg>
+          <span>Gallery</span>
+        </Link>
 
-        <button 
-          className={`${styles.menuButton} ${isMenuOpen ? styles.active : ''}`}
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <div className={`${styles.menuOverlay} ${isMenuOpen ? styles.active : ''}`}>
-          <div className={styles.menuContent}>
-            <ul className={styles.navLinks}>
-              <li><a href="/#home" onClick={toggleMenu}>{t('home')}</a></li>
-              <li><a href="/#story" onClick={toggleMenu}>{t('ourStory')}</a></li>
-              <li><a href="/#venue" onClick={toggleMenu}>{t('theVenue')}</a></li>
-              <li><a href="/#schedule" onClick={toggleMenu}>{t('theDay')}</a></li>
-              {/* RSVP removed from menu - replaced by direct link inside site content if needed */}
-              <li><a href="/gallery" onClick={toggleMenu}>{t('gallery')}</a></li>
-              <li className={styles.adminAccessMenuItem}>
-                <a href="/admin" className={styles.adminAccessButton}>{t('adminDashboard')}</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
+        <a href="#schedule" className={styles.navItem}>
+          <svg fill="currentColor" height="20" viewBox="0 0 256 256" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M244.8,150.4a8,8,0,0,1-11.2-1.6A51.6,51.6,0,0,0,192,128a8,8,0,0,1-7.37-4.89,8,8,0,0,1,0-6.22A8,8,0,0,1,192,112a24,24,0,1,0-23.24-30,8,8,0,1,1-15.5-4A40,40,0,1,1,219,117.51a67.94,67.94,0,0,1,27.43,21.68A8,8,0,0,1,244.8,150.4ZM190.92,212a8,8,0,1,1-13.84,8,57,57,0,0,0-98.16,0,8,8,0,1,1-13.84-8,72.06,72.06,0,0,1,33.74-29.92,48,48,0,1,1,58.36,0A72.06,72.06,0,0,1,190.92,212ZM128,176a32,32,0,1,0-32-32A32,32,0,0,0,128,176ZM72,120a8,8,0,0,0-8-8A24,24,0,1,1,87.24,82a8,8,0,1,0,15.5-4A40,40,0,1,0,37,117.51,67.94,67.94,0,0,0,9.6,139.19a8,8,0,1,0,12.8,9.61A51.6,51.6,0,0,1,64,128,8,8,0,0,0,72,120Z"></path></svg>
+          <span>Guests</span>
+        </a>
+      </nav>
+    </>
   );
 };
 

@@ -12,7 +12,6 @@ import './i18n';
 // Import enhanced styles
 import './styles/css/enhanced-style.css';
 import './styles/css/style.css';
-import './styles/css/admin.css';
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
