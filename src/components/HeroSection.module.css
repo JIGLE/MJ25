@@ -1,186 +1,97 @@
-:root {
-  --font-primary: 'Playfair Display', serif;
-  --font-secondary: 'Poppins', sans-serif;
-  --font-hero: 'Dawning of a New Day', cursive;
-  --color-primary: #c4a000;
-  --color-text: #2C3338;
-  --color-text-light: #666666;
-  --color-background: #f8f4f0;
-  --color-sage: #D1D5D0;
-  --color-warm-white: #FAF9F6;
-  --color-beige: #F5F1EA;
-  --max-width: 1200px;
-}
+/* Hero section - mobile first, desktop parallax ready */
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes floralReveal {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 0.15; transform: scale(1); }
-}
-
-@keyframes fadeUp {
-  from { 
-    opacity: 0; 
-    transform: translateY(30px);
-  }
-  to { 
-    opacity: 1; 
-    transform: translateY(0);
-  }
-}
-
-@keyframes scaleIn {
-  from { 
-    transform: scale(1.1);
-    filter: brightness(0.8);
-  }
-  to { 
-    transform: scale(1);
-    filter: brightness(1);
-  }
-}
-
-.hero {
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.heroSection {
   position: relative;
-  padding: 2rem;
   overflow: hidden;
+  /* transparent so the image always fills without a black fallback band */
+  background-color: transparent;
 }
 
-.hero::before {
-  content: '';
+.heroImgWrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(rgba(251, 248, 238, 0.7), rgba(251, 248, 238, 0.7)),
-              url('https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&q=80') center/cover no-repeat;
-  z-index: -1;
-  animation: zoomEffect 20s ease infinite alternate;
+  inset: 0;
+  display: block;
+  /* Mobile-first: make the image wrapper exactly the viewport height so it
+     fills the screen. On larger screens we'll constrain it to a proportional
+     aspect ratio so the hero feels balanced with page content. */
+  /* Fill the viewport but ensure a minimum usable height on tiny viewports
+    where browser chrome reduces usable space. Use max and min clamp. */
+  height: clamp(480px, 100vh, 1400px);
+  will-change: transform;
+  transform: translateY(0);
+  transition: transform 160ms linear;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.heroImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+  background-color: transparent;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.08) 50%);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .heroContent {
-  text-align: center;
-  max-width: var(--max-width);
   position: relative;
-  background: rgba(251, 248, 238, 0.85);
-  padding: 3rem;
-  border-radius: 8px;
-  backdrop-filter: blur(10px);
-}
-
-.heroTitle {
-  font-family: var(--font-hero);
-  font-size: clamp(3.5rem, 10vw, 6rem);
-  color: var(--color-primary);
-  margin-bottom: 1rem;
-  line-height: 1.2;
-  font-weight: normal;
-}
-
-.ampersand {
-  font-family: var(--font-hero);
-  font-style: normal;
-  margin: 0 0.2em;
-  font-size: 1.2em;
-  display: inline-block;
-  transform: rotate(-5deg);
-}
-
-.heroDate {
-  font-family: var(--font-secondary);
-  font-size: clamp(1.25rem, 4vw, 1.5rem);
-  color: var(--color-text);
-  margin-bottom: 2rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  font-weight: 300;
-}
-
-/* RSVP removed - styles intentionally removed */
-
-@keyframes zoomEffect {
-  0% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1.1);
-  }
-}
-
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.heroSection {
-  height: 100vh;
-  position: relative;
+  z-index: 10;
+  /* Keep content visible on very small viewports using a min-value */
+  height: clamp(360px, 100vh, 1200px);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #000;
-  overflow: hidden;
-}
-
-.parallaxBg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 110%;
-  /* Prefer a local hero image at /assets/hero.jpg; fall back to Unsplash if missing */
-  background-image: url('/assets/hero.jpg'), url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&q=80');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.7;
-  animation: scaleIn 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: center;
-  z-index: 1;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* stronger, multi-stop overlay for improved contrast */
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.45) 0%,
-    rgba(0,0,0,0.35) 40%,
-    rgba(0,0,0,0.5) 100%
-  );
-  z-index: 2;
-}
-
-.content {
-  position: relative;
-  z-index: 3;
+  padding: 1rem;
+  color: white;
   text-align: center;
-  max-width: 1200px;
-  padding: 0 2rem;
-  margin: 0 auto;
-  color: #fff;
 }
 
-/* Accessibility: visually hidden but available to screen readers */
+.heroInner{
+  width:100%;
+  max-width:420px;
+  margin:0 auto;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  align-items:center;
+}
+
+.title{font-family: 'Dawning of a New Day', cursive; font-size:2.6rem; color: white; margin:0; text-align:center}
+.dateText{color:white;opacity:0.95;margin-top:4px}
+
+.buttonRow{display:flex;flex-direction:column;gap:10px;margin-top:12px;width:100%;align-items:center}
+.primaryButton{background:#0a56ff;color:white;padding:12px 28px;border-radius:28px;text-decoration:none;display:inline-block;text-align:center;width:84%;max-width:320px;font-weight:600}
+.secondaryButton{background:transparent;color:white;padding:10px 24px;border-radius:28px;border:2px solid rgba(255,255,255,0.45);text-decoration:none;display:inline-block;text-align:center;width:78%;max-width:320px}
+/* Controls UI */
+.controlToggle{position:absolute;right:12px;top:12px;z-index:60;background:rgba(255,255,255,0.9);border-radius:999px;padding:6px 8px;box-shadow:0 6px 18px rgba(0,0,0,0.12);cursor:pointer}
+.controlsPanel{position:absolute;right:12px;top:54px;z-index:60;background:rgba(255,255,255,0.98);border-radius:12px;padding:10px;width:220px;box-shadow:0 8px 30px rgba(0,0,0,0.15);font-size:13px;color:#111}
+.controlsPanel label{display:block;margin-bottom:6px;font-weight:600}
+.controlsPanel .row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.controlsPanel input[type="range"]{width:100%}
+.controlsPanel select{width:100%;padding:6px;border-radius:6px;border:1px solid #ddd}
+
+@media(min-width:640px){
+  .title{font-size:3.6rem}
+  .buttonRow{flex-direction:row}
+  .primaryButton,.secondaryButton{width:auto}
+}
+
+/* Ensure the hero image stays visible on larger viewports; some environments
+   may collapse picture sources — force the wrapper and image to remain shown. */
+@media (min-width: 640px) {
+  .heroImgWrapper, .heroImg { display: block !important; visibility: visible !important; opacity: 1 !important; }
+}
+
+/* No desktop height caps: the hero should fill the viewport on all sizes */
+
 .srOnly {
   position: absolute !important;
   width: 1px;
@@ -193,87 +104,20 @@
   border: 0;
 }
 
-.preTitle {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .heroBg { transition: none !important; transform: translateY(0) !important; }
 }
 
-.title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-  color: white;
+/* mobile-first */
+@media (max-width: 639px) {
+  .heroBg { height: 100vh; background-attachment: scroll; }
+  /* remove extra top padding so the image sits flush beneath the header */
+  .heroContent { padding-top: 0; padding-bottom: 3.5rem; }
 }
 
-.names {
-  font-family: 'Dawning of a New Day', cursive;
-  font-size: clamp(3.5rem, 9vw, 8.5rem);
-  line-height: 1;
-  margin: 0;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
-  text-shadow: 0 10px 30px rgba(0,0,0,0.6);
-}
-
-.subtitle {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.8rem;
-  font-weight: 300;
-  color: var(--color-text);
-  margin: 2rem 0;
-  opacity: 0;
-  animation: fadeIn 0.8s ease-out 0.6s forwards;
-}
-
-.date {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.125rem;
-  font-weight: 300;
-  letter-spacing: 0.15em;
-  margin-top: 3rem;
-  opacity: 0;
-  animation: fadeUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) 0.8s forwards;
-}
-
-.eventRecap {
-  margin-top: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.recapText {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.95);
-  max-width: 36rem;
-  text-align: center;
-  margin: 0;
-}
-
-.softCta {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.12);
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: background 180ms ease, transform 120ms ease;
-}
-
-.softCta:hover,
-.softCta:focus {
-  background: rgba(255,255,255,0.22);
-  transform: translateY(-2px);
+@media (min-width: 768px) {
+  .heroContent { padding: 4rem 2rem; }
 }
 
 .scrollIndicator {
@@ -358,11 +202,15 @@
   }
 
   .names {
+    font-family: 'Dawning of a New Day', cursive;
     font-size: 5rem;
+    color: white;
   }
   
   .ampersand {
+    font-family: 'Playfair Display', serif;
     font-size: 4rem;
+    color: white;
   }
 
   .date {

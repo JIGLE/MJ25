@@ -7,7 +7,6 @@ import './polyfills';
 
 import App from './App.jsx';
 import './index.css';
-import './i18n';
 
 // Import enhanced styles
 import './styles/css/enhanced-style.css';

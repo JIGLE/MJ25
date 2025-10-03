@@ -1,263 +1,66 @@
-/* Wedding Website Enhanced Styles */
+/* Minimal, focused baseline for the mobile-first site
+  Purpose: define the small set of variables and base rules used by components.
+  Keep this file small so component CSS modules can own the layout. */
 
-/* Font Imports */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dawning+of+a+New+Day&family=Amatic+SC:wght@400;700&display=swap');
 
 :root {
-  /* Fonts */
-  --font-primary: 'Playfair Display', serif;
-  --font-secondary: 'Poppins', sans-serif;
-  --font-hero: 'Dawning of a New Day', cursive;
-  --font-accent: 'Cormorant Garamond', serif;
-
-  /* Color Palette */
-  --color-primary: #c4a000;
-  --color-secondary: #0033cc;
-  --color-text: #333333;
-  --color-text-light: #666666;
-  --color-background: #f8f4f0;
-  --bg-light: #fbf8ee;
-  --bg-accent: #b0e2ff;
-  --accent-gold: #daa520;
-  
-  /* Spacing */
-  --spacing-xs: 0.25rem;
-  --spacing-sm: 0.5rem;
-  --spacing-md: 1rem;
-  --spacing-lg: 2rem;
-  --spacing-xl: 4rem;
-
-  /* Max Width */
-  --max-width: 1200px;
+  --color-primary-text: #0033cc; /* blue used for headings */
+  --color-primary: #0033cc; /* primary accent used for active nav and accents */
+  --color-background: #f5f3f4; /* subtle warm background */
+  /* Reserve space for the mobile bottom navigation (used to avoid overlap) */
+  --mobile-nav-height: 64px;
+  /* Glass UI tokens */
+  --glass-foreground: rgba(255,255,255,0.9);
+  --glass-border: rgba(255,255,255,0.6);
+  --glass-ghost: rgba(255,255,255,0.12);
+  --card-radius: 1rem;
+  --gap: 1rem;
+  --max-width: 1100px;
 }
 
-/* Base Styles */
+/* Base reset / small adjustments */
+html, body, #root {
+  height: 100%;
+}
+
 body {
-  font-family: var(--font-primary);
   margin: 0;
-  padding: 0;
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background: var(--color-background);
+  color: #222;
+  font-family: 'Dawning of a New Day', cursive; /* friendly handwritten base for the theme */
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Typography */
-h1, h2, h3 {
-  font-family: var(--font-hero);
-  color: var(--color-primary);
-  margin-bottom: var(--spacing-md);
-}
-
-h4, h5, h6 {
-  font-family: var(--font-accent);
-  color: var(--color-secondary);
-}
-
-/* Hero Section */
-.hero-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-image: var(--hero-bg-image);
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  color: var(--color-white);
-  text-align: center;
-}
-
-.hero-section::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 1;
-}
-
-.hero-content {
-  position: relative;
-  z-index: 2;
-  padding: 2rem;
-}
-
-.hero-title {
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-family: var(--font-heading);
-  margin-bottom: 1rem;
-  line-height: 1.2;
-}
-
-.hero-subtitle {
-  font-size: clamp(1.5rem, 4vw, 2rem);
-  margin-bottom: 2rem;
-  font-weight: 300;
-}
-
-/* Button Styles */
-.btn {
-  display: inline-block;
-  padding: 1rem 2rem;
-  background: var(--color-primary);
-  color: var(--color-white);
-  text-decoration: none;
-  border-radius: var(--border-radius);
-  transition: background-color 0.3s ease;
-  border: none;
-  cursor: pointer;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.btn:hover {
-  background: var(--color-primary-dark);
-  transform: translateY(-2px);
-}
-
-.btn:active {
-  transform: translateY(0);
-}
-
-/* Section Styles */
-.section {
-  padding: 5rem 2rem;
+/* Provide a subtle utility used in components */
+.container-centered {
   max-width: var(--max-width);
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
-.section-title {
-  text-align: center;
-  font-size: clamp(2rem, 5vw, 3rem);
-  margin-bottom: 3rem;
-  font-family: var(--font-heading);
-  color: var(--color-primary);
+/* Glass background utility for small frosted panels */
+.glass-bg {
+  background: rgba(255,255,255,0.62);
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid var(--glass-border);
+  color: var(--glass-foreground);
 }
 
-/* Card Styles */
-.card {
-  background: var(--color-white);
-  padding: 2rem;
-  border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
-  margin-bottom: 2rem;
-  transition: transform 0.3s ease;
+/* Prevent page scroll when applied to body (used on Home) */
+.no-scroll {
+  overflow: hidden !important;
+  height: 100vh !important;
 }
 
-.card:hover {
-  transform: translateY(-5px);
-}
+/* Headings use a handwritten style and the theme color */
+h1,h2,h3 { color: var(--color-primary-text); margin: 0; }
 
-/* Timeline Styles */
-.timeline {
-  position: relative;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem 0;
-}
+/* Small helpers for consistent rounded cards */
+.card-rounded { border-radius: var(--card-radius); overflow: hidden; }
 
-.timeline::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2px;
-  height: 100%;
-  background: var(--color-primary);
-}
+/* Keep this file intentionally small — component CSS modules own layout and visuals */
 
-.timeline-item {
-  position: relative;
-  margin-bottom: 4rem;
-  width: calc(50% - 2rem);
-}
-
-.timeline-item:nth-child(odd) {
-  margin-left: auto;
-  padding-left: 2rem;
-}
-
-.timeline-item:nth-child(even) {
-  margin-right: auto;
-  padding-right: 2rem;
-  text-align: right;
-}
-
-.timeline-item::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  width: 1rem;
-  height: 1rem;
-  background: var(--color-primary);
-  border-radius: 50%;
-}
-
-.timeline-item:nth-child(odd)::before {
-  left: -0.5rem;
-}
-
-.timeline-item:nth-child(even)::before {
-  right: -0.5rem;
-}
-
-/* Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.fade-in {
-  animation: fadeIn 1s ease forwards;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 3rem;
-  }
-  
-  .hero-subtitle {
-    font-size: 1.5rem;
-  }
-  
-  .section {
-    padding: var(--spacing-lg) var(--spacing-md);
-  }
-
-  .timeline::before {
-    left: 2rem;
-  }
-
-  .timeline-item {
-    width: 100%;
-    padding-left: 4rem;
-  }
-
-  .timeline-item:nth-child(even) {
-    text-align: left;
-    padding-right: 0;
-    padding-left: 4rem;
-  }
-
-  .timeline-item::before {
-    left: 1.5rem;
-  }
-
-  .timeline-item:nth-child(even)::before {
-    right: auto;
-    left: 1.5rem;
-  }
-}
+/* NOTE: page-specific bottom padding for the fixed mobile nav should be applied
+  in the page's own CSS module to avoid globally affecting other pages. */

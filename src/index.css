@@ -1,5 +1,7 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  /* Prefer a clean sans for body and a nice display script for headings */
+  /* Load 'Dawning of a New Day' and 'Poppins' via the main stylesheet; fallbacks here */
+  font-family: Poppins, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

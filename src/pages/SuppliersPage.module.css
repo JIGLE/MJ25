@@ -1,0 +1,27 @@
+/* Suppliers page styles consistent with About/Gallery */
+
+:root { --page-max-width: 1100px }
+
+.page { min-height: 100vh; display:flex; flex-direction:column; background:var(--color-background); overflow-x:hidden }
+.page, .page * { box-sizing: border-box }
+
+.header { position: sticky; top:0; z-index:60; display:grid; grid-template-columns:48px 1fr 48px; align-items:center; padding:0.75rem 1rem; background: rgba(255,255,255,0.62); backdrop-filter: blur(12px) saturate(120%); -webkit-backdrop-filter: blur(12px) saturate(120%); border-bottom:1px solid rgba(255,255,255,0.6); box-shadow:0 6px 20px rgba(0,0,0,0.06) }
+
+.title { font-family: 'Dawning of a New Day', cursive; font-size:2.25rem; text-align:center; color:var(--color-primary-text); margin:0 }
+.backButton { display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; color:var(--color-primary-text); text-decoration:none; background:transparent; border-radius:9999px; grid-column:1/2 }
+.spacer { width:40px; grid-column:3/4 }
+
+.main { padding:1rem 1rem 3rem; max-width:var(--page-max-width); margin:0 auto; width:100%; display:flex; flex-direction:column; gap:2rem }
+
+.grid { display:flex; flex-direction:column; gap:1.25rem }
+.card { background:#fff; border-radius:12px; box-shadow:0 8px 24px rgba(16,24,40,0.06); overflow:hidden }
+.imagePlaceholder { height:120px; background: linear-gradient(180deg, rgba(0,0,0,0.03), rgba(0,0,0,0.02)); display:flex; align-items:center; justify-content:center }
+.cardBody { padding:1rem }
+.cardTitle { color:var(--color-primary-text); font-weight:700; margin:0 }
+.cardSubtitle { color:rgba(0,0,0,0.6); font-family: 'Dawning of a New Day', cursive; margin-top:4px }
+.cardDesc { margin-top:8px; color: rgba(0,0,0,0.75); line-height:1.6 }
+.visit { display:inline-block; margin-top:12px; color:var(--color-primary-text); font-weight:600 }
+
+@media (min-width:768px) { .grid { gap:1.75rem; grid-template-columns: repeat(2, minmax(0,1fr)); display:grid } .imagePlaceholder { height:160px } }
+
+@media (min-width:1200px) { .main { max-width: 1200px } .grid { grid-template-columns: repeat(3, minmax(0,1fr)) } }

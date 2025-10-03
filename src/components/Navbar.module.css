@@ -1,69 +1,102 @@
-.navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
-  padding: 1rem 2rem;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 1;
-  visibility: visible;
-  color: var(--color-text);
+:root{
+  --nav-height:64px;
+  --mobile-nav-max: 500px; /* cap visual size to the look at 500px viewport */
+  /* Responsive icon sizing and spacing */
+  --nav-icon-size: clamp(18px, 4.8vw, 28px);
+  --nav-label-size: clamp(11px, 2.8vw, 13px);
+  --nav-padding-vertical: clamp(6px, 1.6vw, 8px);
+  --nav-padding-horizontal: clamp(6px, 2.2vw, 10px);
 }
 
-/* New simplified top header for md+ */
-.topHeader {
-  display: none;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(0,0,0,0.04);
+/* Top compact header for larger screens - frosted glass */
+.topHeader{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0.5rem 1rem;
+  background: rgba(255,255,255,0.62);
+  backdrop-filter: blur(12px) saturate(130%);
+  -webkit-backdrop-filter: blur(12px) saturate(130%);
+  border-bottom: 1px solid rgba(255,255,255,0.6);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
   position: sticky;
   top: 0;
-  z-index: 999;
+  z-index: 50;
 }
-.leftPlaceholder, .rightPlaceholder { width: 2rem; }
-.topHeader .logo { position: static; transform: none; font-size: 1.125rem; }
+.topHeader.transparent{
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+/* Defensive: never show the topHeader (removed from layout). Keep rule to avoid regressions. */
+.topHeader { display: none !important; }
+.topHeader .logo{font-family:'Amatic SC',cursive;font-size:1.3rem;color:var(--color-primary-text)}
+.leftPlaceholder,.rightPlaceholder{width:2rem;height:2rem}
 
-/* Mobile bottom navigation */
-.mobileBottomNav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 64px;
-  background: rgba(255,255,255,0.95);
-  border-top: 1px solid rgba(0,0,0,0.06);
-  z-index: 1000;
-}
-.navItem {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: var(--color-primary, rgb(0,51,204));
-  font-size: 11px;
-}
-.navItem svg { margin-bottom: 4px; }
-
-.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+/* Visually hide the logo text while keeping the link available for screen readers */
+.logoText {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.scrolled {
-  padding: 0.75rem 2rem;
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 51, 204, 0.1);
+/* Mobile bottom navigation (mobile-first) - floating frosted bar */
+.mobileBottomNav{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:fixed;
+  left:50%;
+  transform:translateX(-50%);
+  bottom:12px;
+  width:calc(100% - 40px);
+  /* keep the floating nav visible and visually capped to the "500px" size */
+  max-width: min(720px, var(--mobile-nav-max));
+  padding:var(--nav-padding-vertical) var(--nav-padding-horizontal);
+  gap:6px;
+  background: rgba(255,255,255,0.62);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  border-radius: 999px;
+  box-shadow: 0 8px 26px rgba(0,0,0,0.12);
+  border: 1px solid rgba(255,255,255,0.6);
+  z-index:1000;
 }
+.navItem{display:flex;flex-direction:column;align-items:center;justify-content:center;text-decoration:none;color:var(--color-primary-text);font-size:var(--nav-label-size);padding:var(--nav-padding-vertical) var(--nav-padding-horizontal);min-width:40px;border-radius:12px}
+.navItem svg{margin-bottom:4px;width:var(--nav-icon-size);height:var(--nav-icon-size);flex-shrink:0}
+
+/* Active (current) item: blue pill with stronger background and shadow */
+.navItem[aria-current="page"]{
+  background: rgba(10,86,255,0.12);
+  box-shadow: 0 6px 18px rgba(10,86,255,0.08);
+  transform: translateY(-2px);
+}
+.navItem[aria-current="page"] svg{color:var(--color-primary);fill:var(--color-primary)}
+.navItem[aria-current="page"] span{color:var(--color-primary);font-weight:600}
+
+/* At very small widths, hide text labels to keep icons fitting */
+/* Hide labels on very small widths to ensure icons fit cleanly */
+@media (max-width:420px) {
+  .navItem span { display: none; }
+  .mobileBottomNav { gap: 4px; padding: 6px 8px }
+}
+
+/* Slightly increase spacing in larger phones but keep icons scaled */
+@media (min-width:420px) and (max-width:640px) {
+  :root { --nav-icon-size: clamp(20px, 5vw, 30px); }
+}
+
+.logo{font-family:'Amatic SC', cursive;font-size:1.4rem;color:var(--color-primary-text)}
+
+.menuOverlay{display:none}
 
 /* Menu Button */
 .menuButton {
@@ -329,7 +362,28 @@
   }
 }
 
+/* Keep the mobile bottom nav visible on larger screens too (we emulate the
+   500px visual size via --mobile-nav-max). The topHeader remains available
+   and is shown where appropriate by app logic. */
 @media (min-width: 769px) {
-  .mobileBottomNav { display: none; }
+  /* Keep both visible; app logic controls whether topHeader is rendered */
+  .mobileBottomNav { display: flex; }
   .topHeader { display: flex; }
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .topHeader {
+    background: rgba(18,18,18,0.36);
+    border-bottom-color: rgba(255,255,255,0.04);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  }
+
+  .mobileBottomNav {
+    background: rgba(12,12,12,0.36);
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+  }
+
+  .navItem { color: #eaeaea }
 }

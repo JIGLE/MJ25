@@ -1,10 +1,32 @@
-:root{--gap:12px}
-.gridWrap{max-width:1200px;margin:2rem auto;padding:0 1rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:var(--gap)}
-.card{position:relative;overflow:hidden;border-radius:8px}
-.card img{width:100%;height:100%;object-fit:cover;display:block}
-.card figcaption{position:absolute;left:0;right:0;bottom:0;padding:8px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.5));color:#fff;font-size:0.875rem}
-.placeholder{text-align:center;padding:4rem;color:#666}
+.gridWrap{max-width:var(--max-width);margin:1.5rem auto;padding:0 1rem}
+.grid{display:block}
+.masonryItem{position:relative;overflow:hidden;margin-bottom:1.25rem;break-inside:avoid}
+/* Rounded square look: force square aspect ratio and larger corner radius */
+.masonryItem img{width:100%;height:100%;object-fit:cover;display:block;border-radius:18px;aspect-ratio:1/1}
+.masonryItem .overlay{border-radius:18px}
+.overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.08));opacity:0;transition:opacity .25s}
+.masonryItem:hover .overlay{opacity:1}
+.caption{position:absolute;left:0;right:0;bottom:0;padding:0.75rem;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.5));color:#fff;font-size:0.9rem;border-bottom-left-radius:18px;border-bottom-right-radius:18px}
+.placeholder{text-align:center;padding:3rem;color:#666}
 .actions{text-align:center;margin-top:1rem}
-.loadMore{background:#fff;border:1px solid #ddd;padding:0.6rem 1rem;border-radius:6px}
+.loadMore{background:#fff;border:1px solid #ddd;padding:0.6rem 1rem;border-radius:0.75rem}
 .loading{color:#666}
+
+/* Responsive column behavior: single-column on narrow screens to match the mobile mock */
+@media (min-width: 640px) {
+	.grid { display: block }
+}
+
+@media (min-width: 768px) {
+	/* switch to CSS columns for masonry on wider screens */
+	.grid { column-gap: var(--gap); column-fill: balance; column-count: 2 }
+	.masonryItem { display: inline-block; width: 100%; }
+}
+
+@media (min-width: 1024px) {
+	.grid { column-count: 3 }
+}
+
+@media (min-width: 1280px) {
+	.grid { column-count: 4 }
+}
